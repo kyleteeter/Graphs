@@ -1,13 +1,13 @@
 
 
 class Graph:
-    def __int__(self):
-        self.vertices = {}
+    def __init__(self):
+      self.vertices = {}
 
     #Add a vertex to the graph 
     def add_vertex(self, vertex):
-        if vertex not in self.vertices:
-            self.vertices[vertex] = set()
+        # if vertex not in self.vertices:
+        self.vertices[vertex] = set()
     # Add  a directed edge to the
     def add_edge(self, v1, v2):
         if v1 not in self.vertices:
@@ -45,8 +45,8 @@ def earliest_ancestor(ancestors, starting_node):
     #while q isn\t empty
     while True:
     # dequeue the item, it is our current item
-        node = queue.pop()
-        print(node)
+        node = queue.pop(0)
+        # print(node)
         # mark current as visited
         bft_path.append(node)
         # for each of the dequeued item's edge
@@ -63,8 +63,8 @@ def earliest_ancestor(ancestors, starting_node):
             if parent not in visited:
                 queue.append(parent)
                 visited.add(parent)
-    print('Breath First Path', bft_path)
-    print('Highest Nodes List', highest_nodes)
+    # print('Breath First Path', bft_path)
+    # print('Highest Nodes List', highest_nodes)
 
     if highest_nodes[0] == starting_node:
         return -1
