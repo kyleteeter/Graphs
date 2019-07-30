@@ -13,7 +13,7 @@ class Queue():
             return None
     def size(self):
         return len(self.queue)
-        
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -67,18 +67,23 @@ class SocialGraph:
         friendship_combinations = []
         ##Make all possible frienship combinations
         for userID in self.users:
-            for friend in range(userID +1, self.lastID + 1):
-                if user != friend:
-                    friendship_combinations.append((user, friend))
+            for friendID in range(userID +1, self.lastID + 1):
+                if userID != friendID:
+                    friendship_combinations.append((userID, friendID))
         # print(friendship_combinations)
         ## shuggle the friendship combinations
         random.shuffle(friendship_combinations)
         # print(friendship_combinations)
+        total = avgFriendships * numUsers
         ## take the N number of friendships
-        friends_to_make = friendship_combinations[0:avgFriendships * numUsers / 2`]
+        friends_to_make = friendship_combinations[:int (total / 2)]
         # avg Frienships + total Frienships / numUsers
 
         # Create friendships
+        for friendship in friends_to_make:
+            f1 = friendship[0]
+            f2 = friendship[1]
+            self.addFriendship(f1,f2)
 
     def getAllSocialPaths(self, userID):
         """
