@@ -94,23 +94,41 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
-        visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
-        q = []
-        path = []
-        current_user = []
+        friend_network = {}
 
-        q.append(userID)
+        def shortest_connection(start, stop):
+            breadth = Queue()
+            visited = [ ]
+            breadth.enqueue([start])
+            while breadth.size():
+                path = breadth.dequeue()
+                node = path[-1]
+                if node not in visited:
+                    visited.append(node)
+                    if node == stop:
+                        friend_network[node] = path[::-1]
+                    for neighbor in self.friendships[node]:
+                        new_path = path[:]
+                        new_path.append(neighbor)
+                        breadth.enqueue(new_path)
 
-        while len(q):
-            current_user = q.pop(0)
-            path = graph.bfs(userID, current_user)
-        return visited
+
+
+        for friend in self.friendships:
+            if friend == userID:
+                continue
+            
+            else:
+                shortest_connection(userID, friend)
+                
+        
+        print(f"All of {userID}'s connections")
+        return friend_network
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populateGraph(10, 2)
+    sg.populateGraph(44, 4)
     print(sg.friendships)
     connections = sg.getAllSocialPaths(1)
     print(connections)
